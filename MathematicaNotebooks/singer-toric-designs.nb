@@ -1,0 +1,1518 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     55673,       1510]
+NotebookOptionsPosition[     51512,       1427]
+NotebookOutlinePosition[     51850,       1442]
+CellTagsIndexPosition[     51807,       1439]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["(Projective) toric designs", "Title",
+ CellChangeTimes->{{3.9119129906780863`*^9, 3.911912994739532*^9}, 
+   3.9119886185625057`*^9},ExpressionUUID->"97a4fedd-3c1a-49e1-98b1-\
+e2e7bf150645"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Remove", "[", "\"\<Global`*\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FiniteFields`\>\"", "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.911912917803296*^9, 3.911912922457675*^9}, {
+  3.911915196741125*^9, 3.91191519694987*^9}},
+ CellLabel->"In[27]:=",ExpressionUUID->"e8bfa937-b76e-450f-997d-4fd1d8b1d1f6"],
+
+Cell[CellGroupData[{
+
+Cell["Summary", "Chapter",
+ CellChangeTimes->{{3.911915968458621*^9, 
+  3.9119159696249533`*^9}},ExpressionUUID->"125d944a-4fe4-4686-9431-\
+b29fd0cefa54"],
+
+Cell[TextData[{
+ StyleBox["Singer construction",
+  FontWeight->"Bold"],
+ "\nFix a t and an n. projToricSinger[t, n] will be a list of lists.\n\n\
+Length@projToricSinger[t, n] will be ",
+ Cell[BoxData[
+  FractionBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"nn", "-", "1"}], ")"}], 
+     RowBox[{"t", "+", "1"}]], "-", "1"}], 
+   RowBox[{"nn", "-", "2"}]]],
+  CellChangeTimes->{{3.877562348986915*^9, 3.877562375334653*^9}},
+  ExpressionUUID->"23a69d9e-6a27-4d83-84ff-f1b5daa73601"],
+ ", where nn is the smallest number such that nn \[GreaterEqual] n and (nn-1) \
+is a prime power.\nEach of the ",
+ Cell[BoxData[
+  FractionBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"nn", "-", "1"}], ")"}], 
+     RowBox[{"t", "+", "1"}]], "-", "1"}], 
+   RowBox[{"nn", "-", "2"}]]],
+  CellChangeTimes->{{3.877562348986915*^9, 3.877562375334653*^9}},
+  ExpressionUUID->"afc610df-319d-40e4-9be5-474c4e0eaa7f"],
+ " elements of projToricSinger[t, n] is a list of length n. Each entry in the \
+list of length n is a phase Exp[I \[Theta]].\n\n\
+Length@toric2TFromProjToricT[t, projToricSinger[t, n]] will be ",
+ Cell[BoxData[
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"2", "t"}], "+", "1"}], ")"}], 
+   FractionBox[
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"nn", "-", "1"}], ")"}], 
+      RowBox[{"t", "+", "1"}]], "-", "1"}], 
+    RowBox[{"nn", "-", "2"}]]}]],
+  CellChangeTimes->{{3.877562348986915*^9, 3.877562375334653*^9}},
+  ExpressionUUID->"e0e21d8a-b949-44ac-ab67-6a42b7c9a189"],
+ ", where nn is the smallest number such that nn \[GreaterEqual] n and (nn-1) \
+is a prime power.\nEach of the ",
+ Cell[BoxData[
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"2", "t"}], "+", "1"}], ")"}], 
+   FractionBox[
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"nn", "-", "1"}], ")"}], 
+      RowBox[{"t", "+", "1"}]], "-", "1"}], 
+    RowBox[{"nn", "-", "2"}]]}]],
+  CellChangeTimes->{{3.877562348986915*^9, 3.877562375334653*^9}},
+  ExpressionUUID->"15b15cd4-bad7-4faa-811d-12a14fe6308c"],
+ " elements is a list of length n. Each entry in the list of length n is a \
+phase Exp[I \[Theta]].\n\nLength@toricTFromProjToricT@projToricSinger[t, n+1] \
+will be ",
+ Cell[BoxData[
+  FractionBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"nn", "-", "1"}], ")"}], 
+     RowBox[{"t", "+", "1"}]], "-", "1"}], 
+   RowBox[{"nn", "-", "2"}]]],
+  CellChangeTimes->{{3.877562348986915*^9, 3.877562375334653*^9}},
+  ExpressionUUID->"0d1c667d-53fa-4bd2-b28a-9586d43463be"],
+ ", where nn is the smallest number such that nn \[GreaterEqual] n+1 and \
+(nn-1) is a prime power. \nEach element is a list of length n.\n\nD = \
+projToricSinger[t, n]  is a ",
+ StyleBox["projective n-toric t-design",
+  FontWeight->"Bold"],
+ ", meaning that\n",
+ Cell[BoxData[
+  FormBox[
+   FractionBox["1", 
+    RowBox[{"Length", "@", "D"}]], TraditionalForm]],ExpressionUUID->
+  "43870dfd-c53c-4171-a448-46747cd2281d"],
+ Cell[BoxData[
+  UnderscriptBox["\[Sum]", 
+   RowBox[{"\[Phi]", "\[Element]", "D"}]]],ExpressionUUID->
+  "2c9431a2-4b1c-4bb8-9321-f3c28692253d"],
+ Cell[BoxData[
+  RowBox[{"Exp", "[", 
+   RowBox[{"I", 
+    RowBox[{
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"j", "=", "1"}], "n"], 
+     RowBox[{"c_j", " ", "\[Phi]_j"}]}]}], "]"}]],ExpressionUUID->
+  "dcade5f6-9cc4-4466-b828-7a3964f093bf"],
+ " = (#)\n(#) = 1 if each c_j = 0\n(#) = 0 if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubsuperscriptBox["\[Sum]", 
+     RowBox[{"j", "=", "1"}], "n"], 
+    RowBox[{"max", "(", 
+     RowBox[{"0", ",", "c_j"}], ")"}]}], TraditionalForm]],ExpressionUUID->
+  "7fb67dcd-0b81-412e-b68e-42b6275b4554"],
+ " \[LessEqual] t and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubsuperscriptBox["\[Sum]", 
+     RowBox[{"j", "=", "1"}], "n"], 
+    RowBox[{"max", "(", 
+     RowBox[{"0", ",", 
+      RowBox[{"-", "c_j"}]}], ")"}]}], TraditionalForm]],ExpressionUUID->
+  "4e27eedb-9734-4810-972e-2332b920eed0"],
+ " \[LessEqual] t\n(#) = anything otherwise.\n\nD = toric2TFromProjToricT[t, \
+projToricSinger[t, n]]  is a ",
+ StyleBox["n-toric (2t)-design",
+  FontWeight->"Bold"],
+ ", meaning that\n",
+ Cell[BoxData[
+  FormBox[
+   FractionBox["1", 
+    RowBox[{"Length", "@", "D"}]], TraditionalForm]],ExpressionUUID->
+  "a84e25c9-9d4d-4241-bc64-07d51ad5c922"],
+ Cell[BoxData[
+  UnderscriptBox["\[Sum]", 
+   RowBox[{"\[Phi]", "\[Element]", "D"}]]],ExpressionUUID->
+  "d153ed8c-7f0c-4b3d-8eb1-68eae723ed54"],
+ Cell[BoxData[
+  RowBox[{"Exp", "[", 
+   RowBox[{"I", 
+    RowBox[{
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"j", "=", "1"}], "n"], 
+     RowBox[{"c_j", " ", "\[Phi]_j"}]}]}], "]"}]],ExpressionUUID->
+  "80c80a49-2252-4414-a997-61e727328269"],
+ " = (#)\n(#) = 1 if each c_j = 0\n(#) = 0 if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubsuperscriptBox["\[Sum]", 
+     RowBox[{"j", "=", "1"}], "n"], 
+    RowBox[{"Abs", "[", "c_j", "]"}]}], TraditionalForm]],ExpressionUUID->
+  "90d1482b-45f7-4ade-ae1e-c88555ee62e5"],
+ " \[LessEqual] 2t\n(#) = anything otherwise.\n\nD = \
+toricTFromProjToricT@projToricSinger[t, n+1]  is a ",
+ StyleBox["n-toric t-design",
+  FontWeight->"Bold"],
+ ", meaning that\n",
+ Cell[BoxData[
+  FormBox[
+   FractionBox["1", 
+    RowBox[{"Length", "@", "D"}]], TraditionalForm]],ExpressionUUID->
+  "5a6d5072-e793-4268-aab0-0b5ee53957b7"],
+ Cell[BoxData[
+  UnderscriptBox["\[Sum]", 
+   RowBox[{"\[Phi]", "\[Element]", "D"}]]],ExpressionUUID->
+  "bba65170-3eb4-4d59-9883-b0368832d53a"],
+ Cell[BoxData[
+  RowBox[{"Exp", "[", 
+   RowBox[{"I", 
+    RowBox[{
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"j", "=", "1"}], "n"], 
+     RowBox[{"c_j", " ", "\[Phi]_j"}]}]}], "]"}]],ExpressionUUID->
+  "b9e6903f-3e15-4ca1-bd8c-8364cf898956"],
+ " = (#)\n(#) = 1 if each c_j = 0\n(#) = 0 if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubsuperscriptBox["\[Sum]", 
+     RowBox[{"j", "=", "1"}], "n"], 
+    RowBox[{"Abs", "[", "c_j", "]"}]}], TraditionalForm]],ExpressionUUID->
+  "b73bd2e3-8bde-4c4f-9f04-124b47d44320"],
+ " \[LessEqual] t\n(#) = anything otherwise.\n\n",
+ StyleBox["Finding small toric designs via the bruteforce method\n",
+  FontWeight->"Bold"],
+ "Let m be the desired size of your projective n-toric t-design. Note that m \
+needs to satisfy m \[GreaterEqual] minimalProjToric[t, n].\nYou can \
+bruteforce search for all difference sets via diffSets = \
+findAllDifferenceSets[t, n, m]. This will be a list of difference sets (it \
+might be an empty list). \n\nFor each element diffSet of diffSets (e.g. \
+diffSet = diffSets[[1]]), you can create a",
+ StyleBox[" projective n-toric t-design ",
+  FontWeight->"Bold"],
+ "via projDesign = projToricFromDifference[m, diffSet].\n\nFrom projDesign, \
+you can create an ",
+ StyleBox["n-toric (2t)-design",
+  FontWeight->"Bold"],
+ " via toric2TFromProjToricT[t, projDesign].\n\nAlternatively, you can create \
+a ",
+ StyleBox["(n-1)-toric t-design",
+  FontWeight->"Bold"],
+ " (notice the n-1!!) from projDesign by toricTFromProjToricT[projDesign].\n\n\
+",
+ StyleBox["Cools construction\n",
+  FontWeight->"Bold"],
+ "toricCools[t] "
+}], "Text",
+ CellChangeTimes->{{3.9119159799793587`*^9, 3.9119161570523663`*^9}, {
+  3.911916189795732*^9, 3.911916435915863*^9}, {3.9119164683814087`*^9, 
+  3.911916617062696*^9}, {3.911916653146123*^9, 3.911916682680416*^9}, {
+  3.911916714730373*^9, 3.9119168632950478`*^9}, {3.9119882260901117`*^9, 
+  3.911988455587254*^9}, {3.912001465579212*^9, 3.912001524703937*^9}, {
+  3.9120015576253023`*^9, 3.912001882606639*^9}, {3.9120019244352903`*^9, 
+  3.9120019749462643`*^9}, {3.9120021201679792`*^9, 3.9120021492755117`*^9}, {
+  3.9120022296080236`*^9, 3.912002237046934*^9}, {3.9120813009074373`*^9, 
+  3.9120813142634087`*^9}},ExpressionUUID->"309fa84e-d579-4cf2-90e7-\
+fb29a149cb9c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Helpers", "Chapter",
+ CellChangeTimes->{{3.911913056518766*^9, 3.911913057791815*^9}, {
+   3.9119169178525743`*^9, 3.911916918465246*^9}, {3.9119875911088133`*^9, 
+   3.91198759166383*^9}, 
+   3.911988718527522*^9},ExpressionUUID->"c8594cdc-ca99-4d28-b69b-\
+905a60826ccd"],
+
+Cell[CellGroupData[{
+
+Cell["Find smallest prime power \[GreaterEqual] m", "Subsection",
+ CellChangeTimes->{
+  3.9119875943446198`*^9},ExpressionUUID->"6adb8dab-0ad5-45b6-9844-\
+7c3bab5434ee"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"smallestPrimePower", "[", "m_", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"i", "=", "m"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"While", "[", 
+       RowBox[{
+        RowBox[{"!", 
+         RowBox[{"PrimePowerQ", "@", "i"}]}], ",", 
+        RowBox[{"i", "+=", "1"}]}], "]"}], ";", "\[IndentingNewLine]", 
+      "i"}]}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.911914381835231*^9, 3.9119144022836123`*^9}, {
+  3.911914432594901*^9, 3.9119144632357073`*^9}},
+ CellLabel->"In[29]:=",ExpressionUUID->"1f862949-f235-48d3-b614-d9e4d48af93d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Minimal size of projective toric design", "Subsection",
+ CellChangeTimes->{{3.911987601301032*^9, 
+  3.911987608358714*^9}},ExpressionUUID->"3e270f27-c9c5-47ff-8717-\
+42a86bacee7e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"minimalProjToric", "[", 
+    RowBox[{"t_", ",", "n_"}], "]"}], ":=", 
+   RowBox[{"HypergeometricPFQ", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "-", "n"}], ",", 
+       RowBox[{"-", 
+        RowBox[{"Floor", "[", 
+         RowBox[{"t", "/", "2"}], "]"}]}], ",", "n"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "1"}], "}"}], ",", "1"}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.911987615156011*^9, 3.91198762571134*^9}, {
+   3.9119876730310383`*^9, 3.911987686996715*^9}, 3.911988148645646*^9, {
+   3.911988576287826*^9, 3.911988579203794*^9}},
+ CellLabel->"In[30]:=",ExpressionUUID->"4e889f12-eda5-472c-8473-ae0f02994a1c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Construct n-toric (2t)-designs from projective n-toric t-designs\
+\>", "Subsection",
+ CellChangeTimes->{{3.911915767747777*^9, 3.911915778177899*^9}, {
+  3.911987778578931*^9, 3.911987781857954*^9}, {3.91198799201624*^9, 
+  3.911987996465756*^9}},ExpressionUUID->"6708c8ac-63bf-4eb9-86a4-\
+1aabb17522f8"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"toric2TFromProjToricT", "[", 
+    RowBox[{"t_", ",", "projDesign_"}], "]"}], ":=", 
+   RowBox[{"Join", "@@", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Exp", "[", 
+        FractionBox[
+         RowBox[{"2", "Pi", " ", "I", " ", "j"}], 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"2", "t"}], "+", "1"}], ")"}]], "]"}], "projDesign"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"j", ",", "0", ",", 
+        RowBox[{"2", "t"}]}], "}"}]}], "]"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.911915794351574*^9, 3.91191592867161*^9}, {
+  3.911987784922999*^9, 3.911987808686412*^9}, {3.911987876832817*^9, 
+  3.911987890962935*^9}, {3.911987924286007*^9, 3.911987926828353*^9}},
+ CellLabel->"In[31]:=",ExpressionUUID->"bc7f2041-8026-4a58-85dc-d40f4eda1263"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Construct n-toric t-designs from projective (n+1)-toric t-designs\
+\>", "Subsection",
+ CellChangeTimes->{{3.911987897443795*^9, 3.911987904574917*^9}, {
+  3.911987999415071*^9, 
+  3.911988004275776*^9}},ExpressionUUID->"1971cad4-8b14-44a7-b63e-\
+8d23c112b1d7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"toricTFromProjToricT", "[", "projDesign_", "]"}], ":=", 
+   RowBox[{"projDesign", "[", 
+    RowBox[{"[", 
+     RowBox[{"All", ",", 
+      RowBox[{"2", ";;"}]}], "]"}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.911987916824162*^9, 3.91198794411547*^9}, {
+  3.911988024276402*^9, 3.911988035865156*^9}, {3.911988071805173*^9, 
+  3.911988074414709*^9}, {3.9119881232649393`*^9, 3.911988125580052*^9}},
+ CellLabel->"In[32]:=",ExpressionUUID->"0339c23c-14a2-4079-8c8f-03f36815108b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Construct projective n-toric t-design of size m from t-difference set mod m \
+of size n\
+\>", "Subsection",
+ CellChangeTimes->{{3.911989113075337*^9, 
+  3.911989150014542*^9}},ExpressionUUID->"e9c1fedf-f255-49f5-af75-\
+8c900cdbaf01"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"projToricFromDifference", "[", 
+    RowBox[{"m_", ",", "diffSet_"}], "]"}], ":=", 
+   RowBox[{"Exp", "@", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{
+       FractionBox[
+        RowBox[{"2", "Pi", " ", "I", " ", "j"}], "m"], "diffSet"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"j", ",", "0", ",", 
+        RowBox[{"m", "-", "1"}]}], "}"}]}], "]"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.9119891550602493`*^9, 3.911989309901762*^9}},
+ CellLabel->"In[33]:=",ExpressionUUID->"3091c5b4-746b-45e0-9374-bdefbf40149d"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Singer construction", "Chapter",
+ CellChangeTimes->{{3.911988632280889*^9, 
+  3.91198863444069*^9}},ExpressionUUID->"33eaa8ec-02eb-4265-910c-\
+86ceb72d0efe"],
+
+Cell[CellGroupData[{
+
+Cell["Projective toric designs", "Section",
+ CellChangeTimes->{{3.911987843426662*^9, 
+  3.911987846726554*^9}},ExpressionUUID->"895d4e0a-5805-4310-b14a-\
+e11266a7d294"],
+
+Cell[CellGroupData[{
+
+Cell["Singer set construction (works when n-1 is a prime power)", "Subsection",
+ CellChangeTimes->{{3.911914078751017*^9, 3.911914135674327*^9}, {
+  3.9119875850392847`*^9, 3.911987586444717*^9}, {3.911987740372383*^9, 
+  3.911987740907392*^9}},ExpressionUUID->"c0e0a8d7-8989-4f09-b4c6-\
+6490d9616200"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"T", "[", 
+    RowBox[{"t_", ",", "n_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "\[Theta]", ",", "field", ",", "p", ",", "mod", ",", "prime", ",", 
+       "power"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"prime", "=", 
+       RowBox[{"First", "@", 
+        RowBox[{"First", "@", 
+         RowBox[{"FactorInteger", "[", 
+          RowBox[{"n", "-", "1"}], "]"}]}]}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        RowBox[{
+        "Find", " ", "an", " ", "irreducible", " ", "polynomial", " ", "p", 
+         RowBox[{"(", "x", ")"}], " ", "for", " ", "which", " ", 
+         RowBox[{"GF", "[", 
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"n", "-", "1"}], ")"}], 
+           RowBox[{"t", "+", "1"}]], "]"}]}], " ", "=", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"GF", "[", "prime", "]"}], "[", "x", "]"}], " ", "/", " ", 
+         RowBox[{"(", 
+          RowBox[{"p", 
+           RowBox[{"(", "x", ")"}]}], ")"}]}]}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"p", "=", 
+       RowBox[{"FieldIrreducible", "[", 
+        RowBox[{
+         RowBox[{"GF", "[", 
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"n", "-", "1"}], ")"}], 
+           RowBox[{"t", "+", "1"}]], "]"}], ",", "x"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"n", "-", "1"}], ")"}], 
+         RowBox[{"t", "+", "1"}]], "=", 
+        SuperscriptBox["prime", "power"]}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"power", "=", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"t", "+", "1"}], ")"}], 
+        RowBox[{"Log", "[", 
+         RowBox[{"prime", ",", 
+          RowBox[{"n", "-", "1"}]}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        RowBox[{"To", " ", "do", " ", "arithmetic", " ", "in", " ", 
+         RowBox[{"GF", "[", 
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"n", "-", "1"}], ")"}], 
+           RowBox[{"t", "+", "1"}]], "]"}]}], ",", " ", 
+        RowBox[{"we", " ", "do", " ", "arithmetic", " ", "in", " ", 
+         RowBox[{
+          RowBox[{"GF", "[", "prime", "]"}], "[", "x", "]"}], " ", "and", " ",
+          "then", " ", "mod", " ", "by", " ", "p", 
+         RowBox[{"(", "x", ")"}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"mod", "[", "q_", "]"}], ":=", 
+       RowBox[{"PolynomialMod", "[", 
+        RowBox[{"q", ",", "p", ",", 
+         RowBox[{"Modulus", "\[Rule]", "prime"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "it", " ", "appears", " ", "that", " ", "Mathematica", " ", "picks", 
+        " ", "p", " ", "such", " ", "that", " ", "x", " ", 
+        "\[IndentingNewLine]", "is", " ", "the", " ", "primitive", " ", 
+        "element", " ", 
+        RowBox[{"(", 
+         RowBox[{
+         "see", " ", "the", " ", "first", " ", "section", " ", "of", " ", 
+          "this", " ", "notebook"}], ")"}]}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"\[Theta]", "=", "x"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "this", " ", "is", " ", "all", " ", "the", " ", "nonzero", " ", 
+        "elements", " ", "of", " ", 
+        RowBox[{"GF", "[", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{"n", "-", "1"}], ")"}], 
+          RowBox[{"t", "+", "1"}]], "]"}]}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            SuperscriptBox["\[Theta]", "#"], "&"}], "/@", 
+           RowBox[{"Range", "[", 
+            RowBox[{
+             SuperscriptBox[
+              RowBox[{"(", 
+               RowBox[{"n", "-", "1"}], ")"}], 
+              RowBox[{"t", "+", "1"}]], "-", "1"}], "]"}]}], "//", "mod"}], "//",
+          "Print"}], ";"}], "*)"}], "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        RowBox[{
+        "the", " ", "generator", " ", "of", " ", "the", " ", "multiplicative",
+          " ", "group", " ", "of", " ", "the", " ", "field", " ", 
+         RowBox[{"GF", "[", 
+          RowBox[{"n", "-", "1"}], "]"}], " ", "is", " ", 
+         SuperscriptBox["\[Theta]", 
+          FractionBox[
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{"n", "-", "1"}], ")"}], 
+             RowBox[{"t", "+", "1"}]], "-", "1"}], 
+           RowBox[{"n", "-", "2"}]]]}], ",", " ", 
+        RowBox[{
+        "where", " ", "\[Theta]", " ", "is", " ", "the", " ", "generator", 
+         " ", "of", " ", 
+         RowBox[{"GF", "[", 
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"n", "-", "1"}], ")"}], 
+           RowBox[{"t", "+", "1"}]], "]"}]}]}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"field", "=", 
+       RowBox[{"Join", "[", 
+        RowBox[{
+         RowBox[{"{", "0", "}"}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"mod", "[", 
+            SuperscriptBox["\[Theta]", 
+             RowBox[{"#", 
+              FractionBox[
+               RowBox[{
+                SuperscriptBox[
+                 RowBox[{"(", 
+                  RowBox[{"n", "-", "1"}], ")"}], 
+                 RowBox[{"t", "+", "1"}]], "-", "1"}], 
+               RowBox[{"n", "-", "2"}]]}]], "]"}], "&"}], "/@", 
+          RowBox[{"Range", "[", 
+           RowBox[{"0", ",", 
+            RowBox[{"n", "-", "3"}]}], "]"}]}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"Now", " ", "this", " ", "is", " ", "the", " ", "set", " ", 
+        SubscriptBox["T", "t"]}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"Join", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", "0", "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{
+          RowBox[{
+          "Select", " ", "all", " ", "a", " ", "for", " ", "which", " ", 
+           SuperscriptBox["x", "a"]}], "-", 
+          RowBox[{
+          "x", " ", "is", " ", "an", " ", "element", " ", "of", " ", "the", 
+           " ", "primefield"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"Select", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"Range", "[", 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{"n", "-", "1"}], ")"}], 
+             RowBox[{"t", "+", "1"}]], "-", "1"}], "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"MemberQ", "[", 
+            RowBox[{"field", ",", 
+             RowBox[{"mod", "[", 
+              RowBox[{
+               SuperscriptBox["\[Theta]", "#"], "-", "\[Theta]"}], "]"}]}], 
+            "]"}], "&"}]}], "\[IndentingNewLine]", "]"}]}], 
+       "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJwdxV1IU2EABuAxBcfahaFuNIWpsxxNLabQJHBbxBgeFZ3OHZvmNn9YZVop
+QulFSlToRWGj4SFQQURUYsgIQwtCHeaFQoqkc6I4ROcmouUfWH7vd/HwJNkb
+jDV8Ho+nIPCD+OPfy5shndo0fIBvL7KnOBSrPsM/c+VlK+Tg4y56itJRgSWH
+4qd4LOLkORYxj1qxVfmpDZe7j9txToy2Ayd3MvQ3RfkcZt776JPXnb1YdjnY
+h7s8miQfOa8lLRVL1yvTsTZ2LRsbcqruYkdGgQF/qbYU4mveSvpsf9iEB1SZ
+Zmx+/dWKS4VSGza6Xj7BnEfWgRt7h0Zw1Nl3+rj+oQ+3JC7QAzveXbxzvkY3
+uNqHV8n+Pdso1pT+mcBKwdYPvKIencah1uQAntK+2sbhoQ9/schRfI5fKCz0
+mb4Zp5+cEfmP3qYy/+cHQromOcOPINfOGqOwe6xbhJeEnjisv7khxdW1nSmY
+FcYr8WBPwg18um2hN1mjs/A3jqPP5y4ZcMzmpTy8d/SuBNexchMO+nvK8J1d
+zT18/9mcOIG8z0xdwZ/rDzdk5F+uoxOsSJdFJpJv2RQCzI57xfgjJ5DgkeK5
+AvvVsE7fPE9/6540YRXrrMAXkBFq9w==
+  "],
+ CellLabel->"In[34]:=",ExpressionUUID->"7e18f6bf-cbb6-4a3a-b71a-7f74d723d17f"],
+
+Cell[TextData[{
+ "Now the ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["S", "t"], TraditionalForm]],ExpressionUUID->
+  "17a88bc0-6904-4684-8bb1-63cd176d88e4"],
+ " set is our actual construction of a ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "t"], TraditionalForm]],ExpressionUUID->
+  "d39a1c71-084e-48b2-b130-80c33ddd4079"],
+ " mod ",
+ Cell[BoxData[
+  FractionBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"n", "-", "1"}], ")"}], 
+     RowBox[{"t", "+", "1"}]], "-", "1"}], 
+   RowBox[{"n", "-", "2"}]]],
+  CellChangeTimes->{{3.877562348986915*^9, 3.877562375334653*^9}},
+  ExpressionUUID->"a25c3b97-a10b-43f8-a34e-aeda3c18292d"],
+ " set of size n"
+}], "Text",
+ CellChangeTimes->{{3.8775623862740297`*^9, 3.8775624043119993`*^9}, {
+  3.911914506805232*^9, 
+  3.911914509531516*^9}},ExpressionUUID->"2ba8fcca-ac37-4865-b2a5-\
+a49124aee720"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"This", " ", "is", " ", "the", " ", 
+     SubscriptBox["S", "t"], " ", "set"}], ",", " ", 
+    RowBox[{"the", " ", "residues", " ", "of", " ", 
+     SubscriptBox["T", "t"]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"S", "[", 
+     RowBox[{"t_", ",", "n_"}], "]"}], ":=", 
+    RowBox[{"If", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"n", "\[Equal]", "2"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Mod", "[", 
+        RowBox[{
+         RowBox[{"T", "[", 
+          RowBox[{"t", ",", "n"}], "]"}], ",", 
+         FractionBox[
+          RowBox[{
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{"n", "-", "1"}], ")"}], 
+            RowBox[{"t", "+", "1"}]], "-", "1"}], 
+          RowBox[{"n", "-", "2"}]]}], "]"}], "//", "Sort"}]}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}]}]], "Input",
+ CellChangeTimes->{{3.877562348986915*^9, 3.877562375334653*^9}, 
+   3.877562765629459*^9, {3.9119142294577208`*^9, 3.911914237812222*^9}, {
+   3.912077022126317*^9, 3.912077048418695*^9}, {3.9120772655044413`*^9, 
+   3.9120772717888937`*^9}, {3.912077407328774*^9, 3.912077409482501*^9}},
+ CellLabel->"In[42]:=",ExpressionUUID->"ab8193b3-1a1e-4630-84ab-ff1970b99600"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Construct projective toric t-designs from Singer sets", "Subsection",
+ CellChangeTimes->{{3.911914314620593*^9, 
+  3.9119143304814453`*^9}},ExpressionUUID->"bbd55d3e-630c-4bd6-81a7-\
+3dd837c32bd3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"projToricSinger", "[", 
+    RowBox[{"t_", ",", "n_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"nn", "=", 
+        RowBox[{
+         RowBox[{"smallestPrimePower", "[", 
+          RowBox[{"n", "-", "1"}], "]"}], "+", "1"}]}], ",", "sing", ",", 
+       "m"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"sing", "=", 
+       RowBox[{
+        RowBox[{"S", "[", 
+         RowBox[{"t", ",", "nn"}], "]"}], "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ";;", "n"}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"m", "=", 
+       RowBox[{"If", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"n", "\[Equal]", "2"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"minimalProjToric", "[", 
+          RowBox[{
+           RowBox[{"t", "+", 
+            RowBox[{"Boole", "[", 
+             RowBox[{"OddQ", "[", "t", "]"}], "]"}]}], ",", "2"}], "]"}], ",",
+          "\[IndentingNewLine]", 
+         FractionBox[
+          RowBox[{
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{"nn", "-", "1"}], ")"}], 
+            RowBox[{"t", "+", "1"}]], "-", "1"}], 
+          RowBox[{"nn", "-", "2"}]]}], "\[IndentingNewLine]", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"projToricFromDifference", "[", 
+       RowBox[{"m", ",", "sing"}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.9119143363011627`*^9, 3.911914346474601*^9}, {
+  3.9119145038207483`*^9, 3.911914671377783*^9}, {3.911914711014634*^9, 
+  3.911914853530343*^9}, {3.9119148870714703`*^9, 3.911914913518446*^9}, {
+  3.9119149570347652`*^9, 3.911914982524201*^9}, {3.9119150237940903`*^9, 
+  3.9119150254577513`*^9}, {3.9119152328802147`*^9, 3.9119154181251793`*^9}, {
+  3.911989378355905*^9, 3.911989443469988*^9}, {3.912077209171155*^9, 
+  3.9120772299307547`*^9}, {3.9120772748680964`*^9, 3.912077330249363*^9}, {
+  3.912077399964704*^9, 3.912077405859809*^9}, {3.9120774504553137`*^9, 
+  3.912077457550618*^9}},
+ CellLabel->"In[50]:=",ExpressionUUID->"4342fce6-7401-491f-aa18-afdd9ddd53bb"]
+}, Open  ]]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Bruteforce construction", "Chapter",
+ CellChangeTimes->{{3.9119887267778673`*^9, 
+  3.911988733699594*^9}},ExpressionUUID->"31fc5893-35e3-40ae-906e-\
+e83553c7e63d"],
+
+Cell[CellGroupData[{
+
+Cell["Find all difference sets", "Section",
+ CellChangeTimes->{{3.911988755790854*^9, 
+  3.9119887680301523`*^9}},ExpressionUUID->"2ea0e2c5-df3d-41a8-ac9c-\
+a59ba32cc25b"],
+
+Cell["\<\
+n corresponds to the torus dimension. t corresponds to the strength of the \
+projective design. m corresponds to the size of the design.\
+\>", "Text",
+ CellChangeTimes->{{3.911988862440041*^9, 
+  3.911988887820503*^9}},ExpressionUUID->"f9197770-927f-43cf-9f1b-\
+1c469704cfc4"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"findAllDifferenceSets", "[", 
+    RowBox[{"t_", ",", "n_", ",", "m_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"list", "=", 
+       RowBox[{"{", "}"}]}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Do", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"If", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Length", "@", 
+             RowBox[{"DeleteDuplicates", "@", 
+              RowBox[{"Table", "[", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{"Mod", "[", 
+                 RowBox[{
+                  RowBox[{
+                   SubsuperscriptBox["\[Sum]", 
+                    RowBox[{"i", "=", "1"}], "t"], 
+                   RowBox[{"p", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"a", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], "]"}], "]"}]}], ",", 
+                  "m"}], "]"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"a", ",", 
+                  RowBox[{"DeleteDuplicates", "[", 
+                   RowBox[{"Sort", "/@", 
+                    RowBox[{"Tuples", "[", 
+                    RowBox[{
+                    RowBox[{"Range", "@", "n"}], ",", "t"}], "]"}]}], "]"}]}],
+                  "}"}]}], "\[IndentingNewLine]", "]"}]}]}], "\[Equal]", 
+            RowBox[{"Binomial", "[", 
+             RowBox[{
+              RowBox[{"n", "+", "t", "-", "1"}], ",", "t"}], "]"}]}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"AppendTo", "[", 
+             RowBox[{"list", ",", "p"}], "]"}], ";"}]}], 
+          "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"p", ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Join", "[", 
+             RowBox[{
+              RowBox[{"{", "0", "}"}], ",", "#"}], "]"}], "&"}], "/@", 
+           RowBox[{"DeleteDuplicates", "[", 
+            RowBox[{"Sort", "/@", 
+             RowBox[{"Tuples", "[", 
+              RowBox[{
+               RowBox[{"Range", "[", 
+                RowBox[{"m", "-", "1"}], "]"}], ",", 
+               RowBox[{"n", "-", "1"}]}], "]"}]}], "]"}]}]}], "}"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Return", "@", "list"}], ";"}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.911988844219336*^9, 3.9119888534395723`*^9}, {
+  3.911988896303268*^9, 3.9119889571470137`*^9}, {3.911988993306237*^9, 
+  3.91198907867391*^9}},
+ CellLabel->"In[38]:=",ExpressionUUID->"ace07558-7480-4ed7-9f56-20694b7dff1e"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Example: find minimal projective n-toric t-design and convert it to a n-toric \
+(2t)-design\
+\>", "Subsection",
+ CellChangeTimes->{{3.9119894715041323`*^9, 
+  3.911989502214381*^9}},ExpressionUUID->"ea91783b-c2ab-4cd4-a14e-\
+694e2704797c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"t", "=", "2"}], ",", 
+     RowBox[{"n", "=", "3"}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"toric2TFromProjToricT", "[", "\[IndentingNewLine]", 
+     RowBox[{"t", ",", "\[IndentingNewLine]", 
+      RowBox[{"projToricFromDifference", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"minimalProjToric", "[", 
+         RowBox[{"t", ",", "n"}], "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"First", "@", 
+         RowBox[{"findAllDifferenceSets", "[", 
+          RowBox[{"t", ",", "n", ",", 
+           RowBox[{"minimalProjToric", "[", 
+            RowBox[{"t", ",", "n"}], "]"}]}], "]"}]}]}], 
+       "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}], "//", 
+    "TableForm"}]}], "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.911989532458395*^9, 3.91198964072171*^9}, {
+  3.911989674997918*^9, 3.911989687973791*^9}},
+ CellLabel->"In[39]:=",ExpressionUUID->"c4722e96-365e-4d1c-84d7-a715c8fbe0d6"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"1", "1", "1"},
+    {"1", 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "7"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"6", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "7"]]},
+    {"1", 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "7"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "7"]}]]},
+    {"1", 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"6", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "7"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "7"]]},
+    {"1", 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"6", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "7"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "7"]}]]},
+    {"1", 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "7"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "7"]]},
+    {"1", 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "7"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"6", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "7"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"24", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"26", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"34", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"26", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"34", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"16", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"6", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"6", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"24", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"16", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"32", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"12", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"22", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"18", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"12", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"22", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"8", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"8", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"32", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"18", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"18", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"8", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"32", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"8", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"12", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"22", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"22", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"18", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"32", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"12", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"16", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"6", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"24", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"16", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"6", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"26", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"34", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"34", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"4", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]]},
+    {
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "5"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"24", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]}]], 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox[
+       RowBox[{"26", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "35"]]}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.9119896380315437`*^9, 3.911989644038753*^9}, {
+   3.9119896792376137`*^9, 3.911989688397393*^9}, 3.9120767728079367`*^9, 
+   3.912077333815291*^9},
+ CellLabel->
+  "Out[39]//TableForm=",ExpressionUUID->"0c7c4103-bc48-4111-8fd1-\
+3d327090c2d8"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Cools construction", "Chapter",
+ CellChangeTimes->{{3.91207768720195*^9, 3.9120776883091927`*^9}, {
+  3.912080193194001*^9, 
+  3.912080194949049*^9}},ExpressionUUID->"9a51c50b-fc14-41ff-bc7c-\
+7d830a4c04b4"],
+
+Cell["\<\
+For n=2, Cools constructs minimial toric designs.
+Thm 5.1 and 6.1 https://www.jstor.org/stable/2153725?seq=12\
+\>", "Text",
+ CellChangeTimes->{{3.912077691426466*^9, 3.912077694788163*^9}, {
+  3.912078510196319*^9, 
+  3.912078539613161*^9}},ExpressionUUID->"c13f6b75-b2e1-4d05-ac7f-\
+cbd2bd4d117c"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"helperToricCoolsEvenT", "[", "t_", "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"m", "=", 
+        RowBox[{
+         RowBox[{
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"t", "+", "1"}], ")"}], "2"], "/", "2"}], "+", 
+         RowBox[{"1", "/", "2"}]}]}], ",", 
+       RowBox[{"\[Alpha]", "=", 
+        RowBox[{"t", "+", "1"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Exp", "[", 
+      RowBox[{"2", "Pi", " ", "I", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"j", "/", "m"}], ",", 
+           RowBox[{"\[Alpha]", " ", 
+            RowBox[{"j", "/", "m"}]}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "m"}], "}"}]}], "]"}]}], "]"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"helperToricCoolsOddT", "[", 
+    RowBox[{"t_", ",", 
+     RowBox[{"c_:", 
+      RowBox[{"{", "}"}]}]}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"m", "=", 
+        RowBox[{"Floor", "[", 
+         RowBox[{"t", "/", "2"}], "]"}]}], ",", 
+       RowBox[{"cc", "=", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"c", "\[Equal]", 
+           RowBox[{"{", "}"}]}], ",", 
+          RowBox[{"Table", "[", 
+           RowBox[{"0", ",", 
+            RowBox[{"Ceiling", "[", 
+             RowBox[{"t", "/", "2"}], "]"}]}], "]"}], ",", "c"}], "]"}]}]}], 
+      "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Exp", "[", "\[IndentingNewLine]", 
+      RowBox[{"2", "Pi", " ", "I", " ", "\[IndentingNewLine]", 
+       RowBox[{"Flatten", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Table", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"cc", "[", 
+               RowBox[{"[", 
+                RowBox[{"p", "+", "1"}], "]"}], "]"}], "+", 
+              FractionBox["j", 
+               RowBox[{"2", 
+                RowBox[{"(", 
+                 RowBox[{"m", "+", "1"}], ")"}]}]]}], ",", 
+             RowBox[{
+              RowBox[{"cc", "[", 
+               RowBox[{"[", 
+                RowBox[{"p", "+", "1"}], "]"}], "]"}], "+", 
+              FractionBox[
+               RowBox[{"j", "+", 
+                RowBox[{"2", "p"}]}], 
+               RowBox[{"2", 
+                RowBox[{"(", 
+                 RowBox[{"m", "+", "1"}], ")"}]}]]}]}], "}"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"{", 
+            RowBox[{"p", ",", "0", ",", "m"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"j", ",", "0", ",", "t"}], "}"}]}], "\[IndentingNewLine]",
+           "]"}], ",", "\[IndentingNewLine]", "1"}], "\[IndentingNewLine]", 
+        "]"}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"toricCools", "[", 
+    RowBox[{"t_", ",", 
+     RowBox[{"c_:", 
+      RowBox[{"{", "}"}]}]}], "]"}], ":=", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{"EvenQ", "@", "t"}], ",", 
+     RowBox[{"helperToricCoolsEvenT", "@", "t"}], ",", 
+     RowBox[{"helperToricCoolsOddT", "[", 
+      RowBox[{"t", ",", "c"}], "]"}]}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.912078568728026*^9, 3.912078755272772*^9}, {
+  3.912079110793851*^9, 3.912079120493504*^9}, {3.912079686451455*^9, 
+  3.9120797333935843`*^9}, {3.912079780633733*^9, 3.912079816579999*^9}, {
+  3.912079908553631*^9, 3.912080164766737*^9}, {3.9120807539353447`*^9, 
+  3.912080762225564*^9}},ExpressionUUID->"22d3f961-fff5-4f90-b8f8-\
+2241a70852a6"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Scratch", "Chapter",
+ CellChangeTimes->{{3.912080200549307*^9, 
+  3.912080201630848*^9}},ExpressionUUID->"12b86f3d-ff14-4ce3-9c67-\
+231f269e8bb0"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.912080203964651*^9, 
+  3.912080204266116*^9}},ExpressionUUID->"cc42fac1-6888-4ee8-8c15-\
+ea70a9e40c87"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{826, 903},
+WindowMargins->{{Automatic, 414}, {Automatic, 25}},
+FrontEndVersion->"12.0 for Mac OS X x86 (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 196, 3, 98, "Title",ExpressionUUID->"97a4fedd-3c1a-49e1-98b1-e2e7bf150645"],
+Cell[779, 27, 387, 8, 52, "Input",ExpressionUUID->"e8bfa937-b76e-450f-997d-4fd1d8b1d1f6"],
+Cell[CellGroupData[{
+Cell[1191, 39, 154, 3, 69, "Chapter",ExpressionUUID->"125d944a-4fe4-4686-9431-b29fd0cefa54"],
+Cell[1348, 44, 7791, 209, 1258, "Text",ExpressionUUID->"309fa84e-d579-4cf2-90e7-fb29a149cb9c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9176, 258, 278, 5, 69, "Chapter",ExpressionUUID->"c8594cdc-ca99-4d28-b69b-905a60826ccd"],
+Cell[CellGroupData[{
+Cell[9479, 267, 169, 3, 54, "Subsection",ExpressionUUID->"6adb8dab-0ad5-45b6-9844-7c3bab5434ee"],
+Cell[9651, 272, 685, 17, 94, "Input",ExpressionUUID->"1f862949-f235-48d3-b614-d9e4d48af93d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10373, 294, 187, 3, 54, "Subsection",ExpressionUUID->"3e270f27-c9c5-47ff-8717-42a86bacee7e"],
+Cell[10563, 299, 722, 18, 30, "Input",ExpressionUUID->"4e889f12-eda5-472c-8473-ae0f02994a1c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11322, 322, 314, 6, 54, "Subsection",ExpressionUUID->"6708c8ac-63bf-4eb9-86a4-1aabb17522f8"],
+Cell[11639, 330, 845, 21, 72, "Input",ExpressionUUID->"bc7f2041-8026-4a58-85dc-d40f4eda1263"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12521, 356, 270, 6, 54, "Subsection",ExpressionUUID->"1971cad4-8b14-44a7-b63e-8d23c112b1d7"],
+Cell[12794, 364, 530, 11, 30, "Input",ExpressionUUID->"0339c23c-14a2-4079-8c8f-03f36815108b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13361, 380, 243, 6, 54, "Subsection",ExpressionUUID->"e9c1fedf-f255-49f5-af75-8c900cdbaf01"],
+Cell[13607, 388, 578, 15, 48, "Input",ExpressionUUID->"3091c5b4-746b-45e0-9374-bdefbf40149d"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[14234, 409, 163, 3, 58, "Chapter",ExpressionUUID->"33eaa8ec-02eb-4265-910c-86ceb72d0efe"],
+Cell[CellGroupData[{
+Cell[14422, 416, 169, 3, 67, "Section",ExpressionUUID->"895d4e0a-5805-4310-b14a-e11266a7d294"],
+Cell[CellGroupData[{
+Cell[14616, 423, 302, 4, 54, "Subsection",ExpressionUUID->"c0e0a8d7-8989-4f09-b4c6-6490d9616200"],
+Cell[14921, 429, 8082, 206, 791, "Input",ExpressionUUID->"7e18f6bf-cbb6-4a3a-b71a-7f74d723d17f"],
+Cell[23006, 637, 871, 27, 43, "Text",ExpressionUUID->"2ba8fcca-ac37-4865-b2a5-a49124aee720"],
+Cell[23880, 666, 1407, 34, 171, "Input",ExpressionUUID->"ab8193b3-1a1e-4630-84ab-ff1970b99600"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25324, 705, 203, 3, 54, "Subsection",ExpressionUUID->"bbd55d3e-630c-4bd6-81a7-3dd837c32bd3"],
+Cell[25530, 710, 2181, 51, 248, "Input",ExpressionUUID->"4342fce6-7401-491f-aa18-afdd9ddd53bb"]
+}, Open  ]]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[27772, 768, 170, 3, 58, "Chapter",ExpressionUUID->"31fc5893-35e3-40ae-906e-e83553c7e63d"],
+Cell[CellGroupData[{
+Cell[27967, 775, 171, 3, 67, "Section",ExpressionUUID->"2ea0e2c5-df3d-41a8-ac9c-a59ba32cc25b"],
+Cell[28141, 780, 286, 6, 58, "Text",ExpressionUUID->"f9197770-927f-43cf-9f1b-1c469704cfc4"],
+Cell[28430, 788, 2767, 68, 345, "Input",ExpressionUUID->"ace07558-7480-4ed7-9f56-20694b7dff1e"],
+Cell[CellGroupData[{
+Cell[31222, 860, 249, 6, 54, "Subsection",ExpressionUUID->"ea91783b-c2ab-4cd4-a14e-694e2704797c"],
+Cell[CellGroupData[{
+Cell[31496, 870, 1055, 23, 199, "Input",ExpressionUUID->"c4722e96-365e-4d1c-84d7-a715c8fbe0d6"],
+Cell[32554, 895, 14153, 389, 70, "Output",ExpressionUUID->"0c7c4103-bc48-4111-8fd1-3d327090c2d8"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[46780, 1292, 213, 4, 58, "Chapter",ExpressionUUID->"9a51c50b-fc14-41ff-bc7c-7d830a4c04b4"],
+Cell[46996, 1298, 308, 7, 58, "Text",ExpressionUUID->"c13f6b75-b2e1-4d05-ac7f-cbd2bd4d117c"],
+Cell[47307, 1307, 3833, 103, 472, "Input",ExpressionUUID->"22d3f961-fff5-4f90-b8f8-2241a70852a6"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[51177, 1415, 152, 3, 58, "Chapter",ExpressionUUID->"12b86f3d-ff14-4ce3-9c67-231f269e8bb0"],
+Cell[51332, 1420, 152, 3, 30, "Input",ExpressionUUID->"cc42fac1-6888-4ee8-8c15-ea70a9e40c87"]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+
