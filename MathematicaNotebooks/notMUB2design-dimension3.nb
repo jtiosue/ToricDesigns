@@ -1,0 +1,269 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      8937,        259]
+NotebookOptionsPosition[      7115,        215]
+NotebookOutlinePosition[      7453,        230]
+CellTagsIndexPosition[      7410,        227]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+An explicit 2-design of size d(d+1) that is not a complete set of MUBs\
+\>", "Title",
+ CellChangeTimes->{{3.9237424897858343`*^9, 
+  3.923742509622589*^9}},ExpressionUUID->"1d0dc3dc-6623-459f-9670-\
+756cf79dfc70"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+We have many examples coming from projective toric 2-designs. Here I\
+\[CloseCurlyQuote]ll just write down an explicit example when d = 3\
+\>", "Subsection",
+ CellChangeTimes->{{3.923742520813765*^9, 3.92374255786554*^9}, {
+  3.923834327479265*^9, 
+  3.92383432751713*^9}},ExpressionUUID->"74ca487e-ab16-4f16-9547-\
+15d435e9770e"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"diffset", "=", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "1", ",", "3"}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"twoDesign", "=", 
+   RowBox[{"Join", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"UnitVector", "[", 
+        RowBox[{"3", ",", "k"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"k", ",", "3"}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{
+        FractionBox["1", 
+         SqrtBox["3"]], 
+        RowBox[{"Exp", "[", 
+         FractionBox[
+          RowBox[{"2", "Pi", " ", "I", " ", "j", " ", "diffset"}], "9"], 
+         "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"j", ",", "9"}], "}"}]}], "]"}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.923740931869357*^9, 3.923740998111025*^9}, {
+   3.923741044777398*^9, 3.923741162245563*^9}, {3.923742576099402*^9, 
+   3.923742644207479*^9}, 3.923742680598654*^9, {3.923834179382696*^9, 
+   3.9238341968914022`*^9}},
+ CellLabel->"In[22]:=",ExpressionUUID->"1bde8a9a-f2f0-46f5-ae10-fe87c832d778"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Check that the size of the two design is d(d+1) = 3(3+1) = 12 and that each \
+element is indeed a quantum state\
+\>", "Subsection",
+ CellChangeTimes->{{3.923741166047649*^9, 3.923741178735407*^9}, {
+  3.923742686165024*^9, 3.9237426900737257`*^9}, {3.923834202330886*^9, 
+  3.9238342073012877`*^9}},ExpressionUUID->"e89cb044-4339-4ce0-8f5e-\
+e7348f78b91b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"twoDesign", "//", "Length"}]], "Input",
+ CellChangeTimes->{{3.9237411797910852`*^9, 3.923741181747011*^9}},
+ CellLabel->"In[24]:=",ExpressionUUID->"47664b3a-532d-4bfb-ad1b-fd70a472716d"],
+
+Cell[BoxData["12"], "Output",
+ CellChangeTimes->{3.923741182117333*^9, 3.923834212033368*^9, 
+  3.92383448182019*^9},
+ CellLabel->"Out[24]=",ExpressionUUID->"f2f068d8-beae-41ca-8ea3-8bdb73afa2f9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AllTrue", "[", 
+  RowBox[{"twoDesign", ",", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Norm", "[", "#", "]"}], "\[Equal]", "1"}], "&"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.923742696584558*^9, 3.923742709607287*^9}, {
+  3.9237427521625338`*^9, 3.923742754965214*^9}},
+ CellLabel->"In[25]:=",ExpressionUUID->"c2d67ef1-e097-4445-a0c5-7c79b6193e62"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.923742758678684*^9, 3.923834214057474*^9, 
+  3.923834481859634*^9},
+ CellLabel->"Out[25]=",ExpressionUUID->"a54e2c44-5678-4469-a952-d283bc6192e9"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Check that it is indeed a 2-design. We do this with the frame potential\
+\>", "Subsection",
+ CellChangeTimes->{{3.92374118470432*^9, 
+  3.923741197681755*^9}},ExpressionUUID->"2d9ae37b-ac58-44f2-991e-\
+122092b88073"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    FractionBox["1", 
+     SuperscriptBox[
+      RowBox[{"Length", "[", "twoDesign", "]"}], "2"]], 
+    RowBox[{"Sum", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      SuperscriptBox[
+       RowBox[{"Abs", "[", 
+        RowBox[{"Dot", "[", 
+         RowBox[{
+          RowBox[{"Conjugate", "@", "\[Psi]"}], ",", "\[Phi]"}], "]"}], "]"}],
+        "4"], ",", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\[Psi]", ",", "twoDesign"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"\[Phi]", ",", "twoDesign"}], "}"}]}], "\[IndentingNewLine]", 
+     "]"}]}], "\[Equal]", 
+   FractionBox["1", 
+    RowBox[{"Binomial", "[", 
+     RowBox[{"4", ",", "2"}], "]"}]]}], "//", "FullSimplify"}]], "Input",
+ CellChangeTimes->{{3.9237412296406918`*^9, 3.923741270795841*^9}, {
+  3.9237413121933527`*^9, 3.923741333598241*^9}, {3.923741372593417*^9, 
+  3.923741387342986*^9}, {3.92374277135091*^9, 3.9237427758016977`*^9}, {
+  3.923834224342216*^9, 3.923834224477283*^9}},
+ CellLabel->"In[26]:=",ExpressionUUID->"bd3df8c2-63a6-40c9-95d3-6952b7c43f9f"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{
+  3.923741338821937*^9, {3.923741382827155*^9, 3.923741388645308*^9}, 
+   3.9237427833609953`*^9, 3.923834225052841*^9, 3.9238344819133787`*^9},
+ CellLabel->"Out[26]=",ExpressionUUID->"17e6da65-9753-46e0-9af6-8938b55b12c1"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Check that it is not a complete set of MUBs. We only need to find a single \
+pair of states that whose overlap is nonzero but also does not have magnitude \
+",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"1", "/", 
+     RowBox[{"Sqrt", "[", "d", "]"}]}], "=", 
+    RowBox[{"1", "/", 
+     SqrtBox["3"]}]}], TraditionalForm]],ExpressionUUID->
+  "9a8adc4b-87b0-4135-918b-c87bc302680a"]
+}], "Subsection",
+ CellChangeTimes->{{3.9237414455481977`*^9, 3.9237415226383667`*^9}, {
+  3.9237415858397818`*^9, 3.9237415897304077`*^9}, {3.923834230819873*^9, 
+  3.923834230848505*^9}},ExpressionUUID->"c3890d26-a77f-4908-87ec-\
+9230b7edaf59"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   SuperscriptBox[
+    RowBox[{"Abs", "[", 
+     RowBox[{"Dot", "[", 
+      RowBox[{
+       RowBox[{"Conjugate", "@", 
+        RowBox[{"twoDesign", "[", 
+         RowBox[{"[", "7", "]"}], "]"}]}], ",", 
+       RowBox[{"twoDesign", "[", 
+        RowBox[{"[", "9", "]"}], "]"}]}], "]"}], "]"}], "2"], "//", 
+   "FullSimplify"}], "//", "N"}]], "Input",
+ CellChangeTimes->{{3.923741525300458*^9, 3.923741625790188*^9}, {
+  3.9238344778794537`*^9, 3.92383449500891*^9}},
+ CellLabel->"In[30]:=",ExpressionUUID->"aac20b66-4e13-4734-9ad4-f32a66a52c0b"],
+
+Cell[BoxData["0.05199012375133821`"], "Output",
+ CellChangeTimes->{{3.923741550627564*^9, 3.923741625981588*^9}, 
+   3.923742791380467*^9, 3.923834247748603*^9, {3.92383447928894*^9, 
+   3.923834495292533*^9}},
+ CellLabel->"Out[30]=",ExpressionUUID->"e2c5d3c4-2df3-4b8c-aa6f-c6202690f9dc"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{808, 903},
+WindowMargins->{{224, Automatic}, {45, Automatic}},
+FrontEndVersion->"12.0 for Mac OS X x86 (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 223, 5, 160, "Title",ExpressionUUID->"1d0dc3dc-6623-459f-9670-756cf79dfc70"],
+Cell[CellGroupData[{
+Cell[828, 31, 340, 7, 81, "Subsection",ExpressionUUID->"74ca487e-ab16-4f16-9547-15d435e9770e"],
+Cell[1171, 40, 1178, 32, 154, "Input",ExpressionUUID->"1bde8a9a-f2f0-46f5-ae10-fe87c832d778"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2386, 77, 366, 7, 81, "Subsection",ExpressionUUID->"e89cb044-4339-4ce0-8f5e-e7348f78b91b"],
+Cell[CellGroupData[{
+Cell[2777, 88, 210, 3, 30, "Input",ExpressionUUID->"47664b3a-532d-4bfb-ad1b-fd70a472716d"],
+Cell[2990, 93, 196, 3, 34, "Output",ExpressionUUID->"f2f068d8-beae-41ca-8ea3-8bdb73afa2f9"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3223, 101, 375, 9, 30, "Input",ExpressionUUID->"c2d67ef1-e097-4445-a0c5-7c79b6193e62"],
+Cell[3601, 112, 199, 3, 34, "Output",ExpressionUUID->"a54e2c44-5678-4469-a952-d283bc6192e9"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3849, 121, 226, 5, 54, "Subsection",ExpressionUUID->"2d9ae37b-ac58-44f2-991e-122092b88073"],
+Cell[CellGroupData[{
+Cell[4100, 130, 1098, 27, 137, "Input",ExpressionUUID->"bd3df8c2-63a6-40c9-95d3-6952b7c43f9f"],
+Cell[5201, 159, 275, 4, 34, "Output",ExpressionUUID->"17e6da65-9753-46e0-9af6-8938b55b12c1"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5525, 169, 654, 16, 114, "Subsection",ExpressionUUID->"c3890d26-a77f-4908-87ec-9230b7edaf59"],
+Cell[CellGroupData[{
+Cell[6204, 189, 579, 15, 30, "Input",ExpressionUUID->"aac20b66-4e13-4734-9ad4-f32a66a52c0b"],
+Cell[6786, 206, 289, 4, 34, "Output",ExpressionUUID->"e2c5d3c4-2df3-4b8c-aa6f-c6202690f9dc"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
